@@ -1,0 +1,7 @@
+{
+  "name": "Meerssenger",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
