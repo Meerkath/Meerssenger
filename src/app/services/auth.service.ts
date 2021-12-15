@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
-
+import { Storage } from '@capacitor/storage';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,11 +12,14 @@ export class AuthService {
   refreshToken(token: string): Observable<any> {
     const headers = new HttpHeaders(
       {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + token
       }
     );
     return this.http.get(`${this.apiUrl}/refreshToken`, {headers});
+  }
+
+  async saveTokenLocally(token: string){
+    await Storage.set({key:'accessToken', value:token});
   }
 }

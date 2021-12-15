@@ -5,7 +5,7 @@ import { alertController } from '@ionic/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { User } from '../models/User';
 import { Router } from '@angular/router';
-
+import { AuthService } from '../services/auth.service'
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -20,6 +20,7 @@ export class LoginPage implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
+    private authService: AuthService
     ) { }
 
   ngOnInit() {
@@ -33,14 +34,16 @@ export class LoginPage implements OnInit {
     this.userService.loginUser(this.emailOrUserName, this.password).subscribe(
     {
       next:(data) => {
-      // this.storageService.set('id', data._id);
-      // this.storageService.set('firstName', data.firstName);
-      // this.storageService.set('lastName', data.lastName);
-      // this.storageService.set('userName', data.userName);
-      // this.storageService.set('email', data.email);
-      // this.storageService.set('refreshToken', data.refreshToken);
-      // this.storageService.set('accessToken', data.accessToken);
-      this.router.navigate(['/friends']);
+        
+        // this.storage.set({key: 'id', value: data._id});
+        // this.storage.set({key: 'firstName', value: data.firstName});
+        // this.storage.set({key: 'lastName', value: data.lastName});
+        // this.storage.set({key:'userName', value: data.userName});
+        // this.storage.set({key:'email', value: data.email});
+        // this.storage.set({key:'refreshToken', value: data.refreshToken});
+        // this.storage.set({key:'accessToken', value: data.accessToken}).then(() => this.router.navigate(['/friends']));
+        this.authService.saveTokenLocally(data.accessToken).then(() => this.router.navigate(['/friends']))
+        
       },
       error: (err) => {
       console.error(err);

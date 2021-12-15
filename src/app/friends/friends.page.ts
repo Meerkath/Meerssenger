@@ -10,7 +10,7 @@ export class FriendsPage implements OnInit {
   friends = [];
   constructor(
     private userService: UserService,
-    private router: Router
+    private router: Router,
     ) { }
 
   ngOnInit() {
