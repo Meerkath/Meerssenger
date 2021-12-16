@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
   constructor() {}
+  // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
   ngOnInit() {
   }
 }

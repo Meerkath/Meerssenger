@@ -12,14 +12,24 @@ export class AuthService {
   refreshToken(token: string): Observable<any> {
     const headers = new HttpHeaders(
       {
+      // eslint-disable-next-line @typescript-eslint/naming-convention
       'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + token
+      authorization: 'Bearer ' + token
       }
     );
     return this.http.get(`${this.apiUrl}/refreshToken`, {headers});
   }
 
-  async saveTokenLocally(token: string){
-    await Storage.set({key:'accessToken', value:token});
+  setAccessToken(token: string){
+    return Storage.set({key:'accessToken', value:token});
+  }
+  getAccessToken(){
+    return Storage.get({key:'accessToken'});
+  }
+  setRefreshToken(token: string){
+    return Storage.set({key:'refreshToken', value:token});
+  }
+  getRefreshToken(){
+    return Storage.get({key:'refreshToken'});
   }
 }

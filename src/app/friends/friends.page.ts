@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-friends',
   templateUrl: './friends.page.html',
@@ -11,18 +12,17 @@ export class FriendsPage implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
+    private authService: AuthService
     ) { }
 
   ngOnInit() {
-    // this.storageService.get('accessToken')
-    // .then((accessToken) => {
-    //   if (!accessToken) {
-    //     this.router.navigate(['/friends']);
-    //   }
-    //   this.userService.getFriends(accessToken).subscribe((friends) => {
-    //     console.log(friends); //TODO if 401 refreshToken
-    //   });
-    // });
+    this.authService.getAccessToken()
+    .then((accessToken) => {
+      this.userService.getFriends(accessToken.value)
+      .subscribe((friends) => {
+        this.friends = friends;
+      });
+    });
   }
 
   deleteConversation(){

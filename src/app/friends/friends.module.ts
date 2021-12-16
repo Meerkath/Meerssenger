@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { FriendsPageRoutingModule } from './friends-routing.module';
 import { FriendsPage } from './friends.page';
+import { FriendComponent } from '../components/friends/friend/friend.component';
 
 @NgModule({
   imports: [
@@ -12,6 +13,6 @@ import { FriendsPage } from './friends.page';
     IonicModule,
     FriendsPageRoutingModule
   ],
-  declarations: [FriendsPage]
+  declarations: [FriendsPage, FriendComponent],
 })
 export class FriendsPageModule {}
