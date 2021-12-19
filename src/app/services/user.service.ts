@@ -14,15 +14,8 @@ export class UserService {
     return this.http.get<User[]>(this.apiUrl);
   }
 
-  getFriends(accessToken: string): Observable<User[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        'Content-type': 'application/json',
-        authorization: `Bearer ${accessToken}`
-      })
-    };
-    return this.http.get<User[]>(`${this.apiUrl}/friends`,httpOptions);
+  getFriends(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/friends`);
   }
 
   createUser(user: User): Observable<any> {

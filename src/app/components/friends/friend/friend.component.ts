@@ -7,11 +7,10 @@ import { User } from '../../../models/User';
 })
 export class FriendComponent implements OnInit {
   @Input() friend!: User;
+  lastMessage: string;
   constructor() { }
 
-  ngOnInit() {
-    console.log(this.friend);
-  }
+  ngOnInit() {}
   deleteConversation(){
     console.log('Conversation deleted');
   }

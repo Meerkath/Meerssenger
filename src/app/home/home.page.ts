@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  constructor() {}
-  // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
-  ngOnInit() {
-  }
+  constructor(private auth: AuthService, private router: Router) {}
 }
