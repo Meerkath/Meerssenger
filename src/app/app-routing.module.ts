@@ -27,6 +27,10 @@ const routes: Routes = [
     path: 'friends',
     loadChildren: () => import('./friends/friends.module').then( m => m.FriendsPageModule)
   },
+  {
+    path: 'messages',
+    loadChildren: () => import('./messages/messages.module').then( m => m.MessagesPageModule)
+  },
 ];
 
 @NgModule({

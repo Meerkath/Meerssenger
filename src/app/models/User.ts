@@ -1,3 +1,4 @@
+import { Message } from './Message';
 export interface User{
   _id?: string;
   lastName: string;
@@ -5,5 +6,5 @@ export interface User{
   userName: string;
   email: string;
   password?: string;
-  token?: string;
+  lastMessage?: Message;
 }

@@ -9,7 +9,6 @@ export class InterceptorService implements HttpInterceptor{
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     // convert promise to observable using 'from' operator
-    console.log(req);
     return from(this.handle(req, next));
   }
 
