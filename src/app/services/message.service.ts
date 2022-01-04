@@ -30,4 +30,8 @@ export class MessageService {
     const stringMessage = (await Storage.get({key:`messagesWith${friend.userName}`})).value;
     return JSON.parse(stringMessage);
   }
+
+  sendMessage(message: Message, recipient: User): Observable<Message>{
+    return this.http.post<Message>(`${this.http.apiUrl}/sendMessage`); //TODO
+  }
 }

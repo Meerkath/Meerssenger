@@ -17,11 +17,11 @@ export class UserService {
     return this.http.get<User[]>(`${this.apiUrl}/friends`);
   }
 
-  createUser(user: User): Observable<any> {
+  createUser(user: User): Observable<User> {
     return this.http.post<User>(this.apiUrl, user);
   }
 
-  loginUser(emailOrUserName: string, password: string): Observable<any> {
+  loginUser(emailOrUserName: string, password: string): Observable<User> {
     return this.http.post<User>(`${this.apiUrl}/login`,
      { emailOrUserName, password });
   }
