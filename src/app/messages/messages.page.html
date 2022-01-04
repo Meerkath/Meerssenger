@@ -1,12 +1,18 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button text="friends"></ion-back-button>
     </ion-buttons>
-    <ion-title *ngIf="this.friend">Messages with {{this.friend.userName}}</ion-title>
+    <ion-title *ngIf="this.friend">{{this.friend.userName}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content scrollDownOnLoad="true">
+  <div id="messages-container">
+    <app-message *ngFor="let message of messages" [message]="message"></app-message>
+  </div>
+  <div id="input-container" slot="fixed">
+    <input  id="input" type="text">
+    <ion-button id="send-button"><ion-icon name="send-outline"></ion-icon></ion-button>
+  </div>
 </ion-content>

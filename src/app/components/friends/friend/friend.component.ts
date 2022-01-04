@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { User } from '../../../models/User';
 import { Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { DateService } from 'src/app/services/date.service';
+
 @Component({
   selector: 'app-friend',
   templateUrl: './friend.component.html',
@@ -9,11 +10,16 @@ import { NavController } from '@ionic/angular';
 })
 export class FriendComponent implements OnInit {
   @Input() friend!: User;
-  constructor(private nav: NavController) { }
+  constructor(
+    private router: Router,
+    public dateService: DateService,
+    ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.seeMessages();
+  }
   seeMessages() {
-    this.nav.navigateForward('/messages', { state: this.friend });
+    this.router.navigate(['/messages', this.friend]);
   }
   deleteConversation(){
     console.log('Conversation deleted');

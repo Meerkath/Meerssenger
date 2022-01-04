@@ -4,4 +4,5 @@ export interface Message{
   senderId: string;
   date: string;
   recipientId: string;
+  sentByActualUser?: boolean;
 }

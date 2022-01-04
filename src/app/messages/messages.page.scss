@@ -1,0 +1,24 @@
+#input-container {
+  bottom: 0px;
+  width: 100%;
+  box-shadow: 1px -3px 10px rgba(0, 0, 0, 0.2);
+  display:flex;
+}
+
+#input {
+  border-radius: 20px;
+  margin-top: 20px;
+  left: 10px;
+  margin: 10px 0px 10px 2%;
+  background-color: rgb(235, 235, 235);
+  flex-grow: 1;
+  padding-left: 15px;
+  outline: none;
+  border: none;
+  font-size: 1em;
+}
+
+#send-button {
+  margin: 10px 5px 10px 10px;
+  width: 50px;
+}

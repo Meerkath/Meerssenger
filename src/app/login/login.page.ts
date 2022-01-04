@@ -36,7 +36,6 @@ export class LoginPage implements OnInit {
         this.authService.setAccessToken(data.accessToken).then(() => this.router.navigate(['/friends']));
       },
       error: (err) => {
-      console.error(err);
       this.showAlert('Can\'t connect to your account.', err.error);
     }
     });

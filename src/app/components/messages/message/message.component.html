@@ -1,0 +1,6 @@
+<div (click)="toggleDate()" class="{{class}} message">
+  <p>
+    {{message.content}}
+  </p>
+  <p *ngIf="displayDate" class="date">{{this.dateService.formatDateFull(message.date)}}</p>
+</div>

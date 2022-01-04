@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { User } from '../models/user';
 import { Message } from '../models/message';
 import { MessageService } from '../services/message.service';
-import { NavController } from '@ionic/angular';
+import { DateService } from '../services/date.service';
 @Component({
   selector: 'app-friends',
   templateUrl: './friends.page.html',
@@ -15,17 +15,18 @@ export class FriendsPage implements OnInit {
   friends: User[] = [];
   constructor(
     private userService: UserService,
-    private navController: NavController,
     private messageService: MessageService,
-    private router: Router
+    private router: Router,
+    private dateService: DateService,
     ) { }
 
   ngOnInit() {
     this.userService.getFriends().subscribe(
     {
       next: (friends: User[]) => {
+        console.log(friends);
         friends.forEach((friend: User) => {
-          this.messageService.getLastMessage(friend._id).subscribe((message: Message) => {
+          this.messageService.getLastMessage(friend).subscribe((message: Message) => {
             friend.lastMessage = message;
           });
         });
@@ -36,6 +37,7 @@ export class FriendsPage implements OnInit {
       }
     });
   }
+
   deleteConversation(){
     console.log('Deleting');
   }

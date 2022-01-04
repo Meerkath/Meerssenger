@@ -30,6 +30,7 @@
     "@capacitor/storage": "^1.2.3",
     "@ionic/angular": "^5.5.2",
     "cordova-sqlite-storage": "^6.0.0",
+    "moment": "^2.29.1",
     "mongodb": "^4.2.1",
     "mongoose": "^6.0.14",
     "rxjs": "^6.5.0",
