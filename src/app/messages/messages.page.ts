@@ -12,9 +12,11 @@ import { Message } from '../models/Message';
 export class MessagesPage implements OnInit {
   friend: User;
   messages: Message[];
+  input: string;
   constructor(private activatedRoute: ActivatedRoute,
     private router: Router,
-    private messageService: MessageService) { }
+    private messageService: MessageService
+    ) { }
 
   async ngOnInit() {
     this.activatedRoute.params.subscribe(async data => {
@@ -56,5 +58,10 @@ export class MessagesPage implements OnInit {
         }
       });
     });
+  }
+
+  sendMessage(){
+    if(!this.input) {return;}
+    
   }
 }
