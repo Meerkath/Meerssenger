@@ -2,5 +2,7 @@
   <p>
     {{message.content}}
   </p>
-  <p *ngIf="displayDate" class="date">{{this.dateService.formatDateFull(message.date)}}</p>
+  <p *ngIf="displayDate" class="date">
+    {{this.dateService.formatDateFull(message.date)}}
+  </p>
 </div>

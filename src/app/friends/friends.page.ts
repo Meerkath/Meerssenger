@@ -3,9 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { User } from '../models/user';
-import { Message } from '../models/message';
 import { MessageService } from '../services/message.service';
-import { DateService } from '../services/date.service';
 @Component({
   selector: 'app-friends',
   templateUrl: './friends.page.html',
@@ -17,27 +15,31 @@ export class FriendsPage implements OnInit {
     private userService: UserService,
     private messageService: MessageService,
     private router: Router,
-    private dateService: DateService,
     ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.refreshFriends();
+  }
+
+  async refreshFriends() {
     this.userService.getFriends().subscribe(
     {
-      next: (friends: User[]) => {
-        console.log(friends);
-        friends.forEach((friend: User) => {
-          this.messageService.getLastMessage(friend).subscribe((message: Message) => {
-            friend.lastMessage = message;
-          });
-        });
-        this.friends = friends;
+      next: async (friends: User[]) => {
+        for (const friend of friends) {
+          friend.lastMessage = await this.messageService.getLastMessage(friend);
+        }
+        if(JSON.stringify(friends) !== JSON.stringify(this.friends)){
+          this.friends = friends;
+        }
       },
       error: () => {
         this.router.navigate(['/login']);
       }
     });
+    setTimeout(() => {
+      this.refreshFriends();
+    }, 1000);
   }
-
   deleteConversation(){
     console.log('Deleting');
   }

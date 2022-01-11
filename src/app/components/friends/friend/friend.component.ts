@@ -16,7 +16,6 @@ export class FriendComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.seeMessages();
   }
   seeMessages() {
     this.router.navigate(['/messages', this.friend]);

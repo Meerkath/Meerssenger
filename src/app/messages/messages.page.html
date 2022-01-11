@@ -12,7 +12,7 @@
     <app-message *ngFor="let message of messages" [message]="message"></app-message>
   </div>
   <div id="input-container" slot="fixed">
-    <input  id="input" type="text">
-    <ion-button id="send-button"><ion-icon name="send-outline"></ion-icon></ion-button>
+    <input  id="input" type="text" name="message" [(ngModel)]="message">
+    <ion-button id="send-button" (click)="sendMessage()" ><ion-icon name="send-outline"></ion-icon></ion-button>
   </div>
 </ion-content>

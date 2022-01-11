@@ -21,13 +21,13 @@ export class AuthService {
   }
 
   setAccessToken(token: string){
-    return Storage.set({key:'accessToken', value:token});
+    return Storage.set({key:'accessToken', value: token});
   }
   getAccessToken(){
     return Storage.get({key:'accessToken'});
   }
   setRefreshToken(token: string){
-    return Storage.set({key:'refreshToken', value:token});
+    return Storage.set({key:'refreshToken', value: token});
   }
   getRefreshToken(){
     return Storage.get({key:'refreshToken'});

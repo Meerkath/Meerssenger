@@ -13,25 +13,26 @@ export class MessageService {
   private apiUrl = 'http://localhost:3000/messages';
   constructor(private http: HttpClient) { }
 
-  getLastMessage(friend: User): Observable<Message> {
-    return this.http.get<Message>(`${this.apiUrl}/lastMessage/${friend._id}`);
+  async getLastMessage(friend: User): Promise<Message> {
+    const message = await this.http.get<any>(`${this.apiUrl}/lastMessage/${ friend._id }`).toPromise();
+    return message;
   }
 
   getAllMessages(friend: User): Observable<Message[]> {
-    return this.http.get<Message[]>(`${this.apiUrl}/allMessages/${friend._id}`);
+    return this.http.get<Message[]>(`${this.apiUrl}/allMessages/${ friend._id }`);
+  }
+
+  sendMessage(message: Message, recipient: User): Observable<Message>{
+    return this.http.post<Message>(`${this.apiUrl}/send/${recipient._id}`,{ message });
   }
 
   setMessages(friend: User, messages: Message[]) {
     const stringMessages = JSON.stringify(messages);
-    return Storage.set({key:`messagesWith${friend.userName}`, value:stringMessages});
+    return Storage.set({key:`messagesWith${friend.userName}`, value: stringMessages});
   }
 
   async getMessages(friend: User): Promise<Message[]> {
-    const stringMessage = (await Storage.get({key:`messagesWith${friend.userName}`})).value;
+    const stringMessage = (await Storage.get({key:`messagesWith${ friend.userName }`})).value;
     return JSON.parse(stringMessage);
-  }
-
-  sendMessage(message: Message, recipient: User): Observable<Message>{
-    return this.http.post<Message>(`${this.http.apiUrl}/sendMessage`); //TODO
   }
 }

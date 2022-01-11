@@ -1,8 +1,9 @@
 export interface Message{
-  _id: string;
+  _id?: string;
   content: string;
-  senderId: string;
-  date: string;
-  recipientId: string;
+  senderId?: string;
+  date: Date;
+  recipientId?: string;
   sentByActualUser?: boolean;
+  read?: boolean;
 }

@@ -4,6 +4,7 @@ import { User } from '../models/User';
 import { MessageService } from '../services/message.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Message } from '../models/Message';
+import { DateService } from '../services/date.service';
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.page.html',
@@ -12,10 +13,11 @@ import { Message } from '../models/Message';
 export class MessagesPage implements OnInit {
   friend: User;
   messages: Message[];
-  input: string;
+  message: string;
   constructor(private activatedRoute: ActivatedRoute,
     private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private dateService: DateService
     ) { }
 
   async ngOnInit() {
@@ -42,12 +44,7 @@ export class MessagesPage implements OnInit {
               message.sentByActualUser = true;
             }
           });
-          messages = messages.sort((a, b) => {
-              if(a.date > b.date){
-                return 1;
-              }
-              return -1;
-          });
+          messages = this.sortMessages(messages);
           if(this.messages !== messages) {
             this.messageService.setMessages(this.friend, messages);
             this.messages = messages;
@@ -61,7 +58,25 @@ export class MessagesPage implements OnInit {
   }
 
   sendMessage(){
-    if(!this.input) {return;}
-    
+    if(!this.message) {return;}
+    const messageToSend: Message = {
+      content: this.message,
+      date: new Date(Date.now())
+    };
+    this.message = '';
+    this.messageService.sendMessage(messageToSend, this.friend).subscribe((sentMessage: Message) => {
+      sentMessage.sentByActualUser = true;
+      sentMessage.read = true;
+      this.messages.push(sentMessage);
+    });
+  }
+
+  sortMessages(messages: Message[]) {
+    return messages.sort((a, b) => {
+      if(a.date > b.date){
+        return 1;
+      }
+      return -1;
+  });
   }
 }
