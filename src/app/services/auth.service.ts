@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Storage } from '@capacitor/storage';
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = `http://${ environment.serverIp }:${ environment.port }`;
+
   constructor(private http: HttpClient) { }
 
   refreshToken(token: string): Observable<any> {
@@ -25,6 +27,9 @@ export class AuthService {
   }
   getAccessToken(){
     return Storage.get({key:'accessToken'});
+  }
+  async deleteAccessToken(){
+    await Storage.remove({key: 'accessToken'});
   }
   setRefreshToken(token: string){
     return Storage.set({key:'refreshToken', value: token});

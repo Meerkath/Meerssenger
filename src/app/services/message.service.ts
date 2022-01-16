@@ -5,12 +5,12 @@ import { Observable } from 'rxjs';
 import { Message } from '../models/Message';
 import { User } from '../models/User';
 import { Storage } from '@capacitor/storage';
-
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class MessageService {
-  private apiUrl = 'http://localhost:3000/messages';
+  private apiUrl = `http://${ environment.serverIp }:${ environment.port }/messages`;
   constructor(private http: HttpClient) { }
 
   async getLastMessage(friend: User): Promise<Message> {

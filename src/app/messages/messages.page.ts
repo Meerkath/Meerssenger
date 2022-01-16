@@ -33,27 +33,7 @@ export class MessagesPage implements OnInit {
         userName: data.userName
       };
       this.messages = await this.messageService.getMessages(this.friend);
-      this.messageService.getAllMessages(this.friend).subscribe(
-      {
-        next: (messages: Message[]) => {
-          messages.forEach(message => {
-            if (message.senderId === this.friend._id){
-              message.sentByActualUser = false;
-            }
-            else {
-              message.sentByActualUser = true;
-            }
-          });
-          messages = this.sortMessages(messages);
-          if(this.messages !== messages) {
-            this.messageService.setMessages(this.friend, messages);
-            this.messages = messages;
-          }
-        },
-        error: () => {
-          this.router.navigate(['/login']);
-        }
-      });
+      this.refreshMessages();
     });
   }
 
@@ -78,5 +58,32 @@ export class MessagesPage implements OnInit {
       }
       return -1;
   });
+  }
+
+  async refreshMessages() {
+      this.messageService.getAllMessages(this.friend).subscribe(
+      {
+        next: (messages: Message[]) => {
+          messages.forEach(message => {
+            if (message.senderId === this.friend._id){
+              message.sentByActualUser = false;
+            }
+            else {
+              message.sentByActualUser = true;
+            }
+          });
+          messages = this.sortMessages(messages);
+          if(JSON.stringify(this.messages) !== JSON.stringify(messages)) {
+            this.messageService.setMessages(this.friend, messages);
+            this.messages = messages;
+          }
+          setTimeout(() => {
+            this.refreshMessages();
+          },(1000));
+        },
+        error: () => {
+          this.router.navigate(['/login']);
+        }
+      });
   }
 }

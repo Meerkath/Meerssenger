@@ -4,6 +4,7 @@ import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { User } from '../models/user';
 import { MessageService } from '../services/message.service';
+import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-friends',
   templateUrl: './friends.page.html',
@@ -15,6 +16,7 @@ export class FriendsPage implements OnInit {
     private userService: UserService,
     private messageService: MessageService,
     private router: Router,
+    private authService: AuthService,
     ) { }
 
   async ngOnInit() {
@@ -32,7 +34,8 @@ export class FriendsPage implements OnInit {
           this.friends = friends;
         }
       },
-      error: () => {
+      error: async () => {
+        await this.authService.deleteAccessToken();
         this.router.navigate(['/login']);
       }
     });
